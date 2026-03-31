@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ana Belén Ojeda</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #168bf9;
+      --blue-light: #e8f4ff;
+      --dark: #0c1b33;
+      --mid: #1e3a5f;
+      --text: #334155;
+      --muted: #64748b;
+      --white: #ffffff;
+      --cream: #fafaf8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 60px 80px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-left::after {
+      content: '';
+      position: absolute;
+      right: -40px;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      background: var(--cream);
+      clip-path: polygon(0 0, 0% 100%, 100% 100%);
+      z-index: 2;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      width: fit-content;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 5vw, 62px);
+      line-height: 1.1;
+      color: var(--dark);
+      margin-bottom: 12px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    h1 em { font-style: italic; color: var(--blue); }
+
+    .role {
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 36px;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .bio-text {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--text);
+      max-width: 460px;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .bio-text p + p { margin-top: 16px; }
+
+    .accent-line {
+      width: 48px;
+      height: 3px;
+      background: var(--blue);
+      border-radius: 2px;
+      margin: 32px 0;
+      animation: fadeUp 0.6s 0.25s ease both;
+    }
+
+    .hero-right {
+      background: linear-gradient(145deg, var(--mid) 0%, var(--dark) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 0.8s ease both;
+    }
+
+    .hero-right::before {
+      content: 'AB';
+      position: absolute;
+      font-family: 'Playfair Display', serif;
+      font-size: 320px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.03);
+      letter-spacing: -20px;
+      user-select: none;
+    }
+
+    .photo-frame { position: relative; z-index: 1; }
+
+    .photo-blob {
+      width: 340px;
+      height: 340px;
+      border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+      overflow: hidden;
+      border: 3px solid rgba(22, 139, 249, 0.4);
+      box-shadow: 0 0 0 12px rgba(22, 139, 249, 0.08), 0 40px 80px rgba(0,0,0,0.5);
+      animation: morph 8s ease-in-out infinite;
+    }
+
+    .photo-blob img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+    }
+
+    .photo-badge {
+      position: absolute;
+      bottom: -16px;
+      right: -20px;
+      background: var(--blue);
+      color: white;
+      padding: 14px 20px;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.4;
+      box-shadow: 0 8px 24px rgba(22,139,249,0.4);
+    }
+
+    .photo-badge strong { display: block; font-size: 22px; font-weight: 700; }
+
+    @keyframes morph {
+      0%, 100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
+      33%  { border-radius: 45% 55% 40% 60% / 60% 40% 55% 45%; }
+      66%  { border-radius: 55% 45% 60% 40% / 40% 55% 45% 60%; }
+    }
+
+    /* ── STORY ── */
+    .story { background: var(--cream); position: relative; z-index: 1; }
+
+    .story-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 60px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 48px);
+      color: var(--dark);
+      line-height: 1.15;
+      margin-bottom: 32px;
+    }
+
+    .story-body p { font-size: 17px; line-height: 1.85; color: var(--text); margin-bottom: 18px; }
+    .story-body p:last-child { margin-bottom: 0; }
+
+    .visual-stack { position: relative; height: 480px; }
+
+    .img-main {
+      width: 320px;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 24px;
+      position: absolute;
+      top: 0;
+      left: 40px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+    }
+
+    .img-logo-wrap {
+      position: absolute;
+      bottom: 40px;
+      left: 0;
+      background: white;
+      border-radius: 20px;
+      padding: 14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .img-logo { width: 52px; height: 52px; object-fit: contain; border-radius: 50%; }
+
+    .img-logo-text { font-size: 13px; font-weight: 500; color: var(--dark); max-width: 140px; line-height: 1.3; }
+    .img-logo-text span { display: block; font-size: 11px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+    .deco-dot {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      top: -20px;
+      right: 0;
+      z-index: -1;
+    }
+
+    /* ── GALLERY (NTUST) ── */
+    .gallery {
+      background: var(--dark);
+      padding: 100px 60px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .gallery::before {
+      content: '';
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(22,139,249,0.07) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .gallery-inner { max-width: 1100px; margin: 0 auto; }
+
+    .gallery-header { text-align: center; margin-bottom: 64px; }
+    .gallery-header .section-label { color: var(--blue); margin-bottom: 16px; }
+    .gallery-header h2 { color: white; font-size: clamp(32px, 4vw, 48px); }
+    .gallery-header h2 em { color: var(--blue); font-style: italic; }
+
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+
+    .gallery-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      cursor: default;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+      border-color: rgba(22,139,249,0.35);
+    }
+
+    .gallery-card:nth-child(2) { margin-top: 36px; }
+    .gallery-card:nth-child(5) { margin-top: -36px; }
+
+    .gallery-img-wrap { position: relative; overflow: hidden; height: 240px; }
+
+    .gallery-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-card:hover .gallery-img-wrap img { transform: scale(1.06); }
+
+    .gallery-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(22,139,249,0.9);
+      color: white;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      backdrop-filter: blur(4px);
+    }
+
+    .gallery-body { padding: 22px 24px 26px; }
+    .gallery-body h4 { font-family: 'Playfair Display', serif; font-size: 18px; color: white; margin-bottom: 8px; line-height: 1.3; }
+    .gallery-body p { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.55); }
+
+    /* ── ACHIEVEMENTS ── */
+    .achievements {
+      background: var(--cream);
+      padding: 100px 60px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .achievements-inner { max-width: 1100px; margin: 0 auto; }
+    .achievements-header { margin-bottom: 60px; }
+    .achievements-header h2 { color: var(--dark); }
+    .achievements-header h2 em { color: var(--blue); font-style: italic; }
+
+    .achievement-featured {
+      background: var(--dark);
+      border-radius: 28px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.18);
+      position: relative;
+    }
+
+    .achievement-featured::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(22,139,249,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .af-left {
+      padding: 56px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .af-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(22,139,249,0.15);
+      border: 1px solid rgba(22,139,249,0.3);
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      width: fit-content;
+      margin-bottom: 28px;
+    }
+
+    .af-year { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 14px; }
+    .af-title { font-family: 'Playfair Display', serif; font-size: clamp(22px, 2.5vw, 32px); color: white; line-height: 1.2; margin-bottom: 10px; }
+    .af-subtitle { font-size: 14px; font-weight: 500; color: var(--blue); margin-bottom: 28px; letter-spacing: 0.03em; }
+    .af-desc { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.6); margin-bottom: 36px; }
+    .af-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .af-tag { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); font-size: 12px; padding: 5px 12px; border-radius: 100px; }
+
+    .af-right {
+      background: linear-gradient(145deg, #0d2340 0%, #0c1b33 100%);
+      padding: 52px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 28px;
+      position: relative;
+      z-index: 1;
+      border-left: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .af-stat { display: flex; align-items: flex-start; gap: 18px; }
+
+    .af-stat-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(22,139,249,0.12);
+      border: 1px solid rgba(22,139,249,0.25);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .af-stat-text strong { display: block; font-size: 15px; font-weight: 600; color: white; margin-bottom: 4px; }
+    .af-stat-text span { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+    .af-divider { height: 1px; background: rgba(255,255,255,0.06); }
+    .af-location { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.5); font-size: 13px; }
+    .af-location-dot { width: 8px; height: 8px; background: var(--blue); border-radius: 50%; box-shadow: 0 0 0 3px rgba(22,139,249,0.2); flex-shrink: 0; }
+
+    /* ── SILICON VALLEY GALLERY ── */
+    .sv-gallery { margin-top: 56px; }
+
+    .sv-gallery-label { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 20px; }
+
+    .sv-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-rows: 220px 220px;
+      gap: 12px;
+    }
+
+    .sv-card { position: relative; border-radius: 16px; overflow: hidden; cursor: pointer; }
+    .sv-card.sv-large { grid-row: 1 / 3; }
+
+    .sv-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+
+    .sv-card:hover img { transform: scale(1.06); }
+
+    .sv-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+      padding: 20px 16px 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .sv-card:hover .sv-overlay { opacity: 1; }
+    .sv-overlay span { color: white; font-size: 13px; font-weight: 500; }
+
+    /* ── TRAITS ── */
+    .traits {
+      background: var(--dark);
+      position: relative;
+      z-index: 1;
+      padding: 80px 60px;
+      overflow: hidden;
+    }
+
+    .traits::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(22,139,249,0.12) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .traits-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+    .traits h3 { font-family: 'Playfair Display', serif; font-size: 36px; color: white; margin-bottom: 48px; }
+
+    .pills { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+
+    .pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: white;
+      padding: 14px 24px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 400;
+      transition: all 0.25s;
+      cursor: default;
+    }
+
+    .pill:hover { background: rgba(22,139,249,0.2); border-color: rgba(22,139,249,0.5); transform: translateY(-2px); }
+    .pill-icon { font-size: 18px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--cream);
+      text-align: center;
+      padding: 40px;
+      font-size: 14px;
+      color: var(--muted);
+      border-top: 1px solid #e2e8f0;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 60px 32px; order: 2; }
+      .hero-left::after { display: none; }
+      .hero-right { order: 1; min-height: 400px; }
+      .photo-blob { width: 260px; height: 260px; }
+      .story-inner { grid-template-columns: 1fr; padding: 60px 32px; gap: 50px; }
+      .visual-stack { height: 340px; }
+      .img-main { width: 240px; height: 280px; left: 20px; }
+      .traits { padding: 60px 32px; }
+      .gallery { padding: 60px 32px; }
+      .gallery-grid { grid-template-columns: 1fr; gap: 20px; }
+      .gallery-card:nth-child(2), .gallery-card:nth-child(5) { margin-top: 0; }
+      .achievements { padding: 60px 32px; }
+      .achievement-featured { grid-template-columns: 1fr; }
+      .af-left { padding: 40px 32px; }
+      .af-right { padding: 32px; border-left: none; border-top: 1px solid rgba(255,255,255,0.06); }
+      .sv-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .sv-card.sv-large { grid-row: auto; grid-column: 1 / 3; height: 240px; }
+      .sv-card { height: 160px; }
+    }
+
+    @media (min-width: 861px) and (max-width: 1060px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-card:nth-child(2), .gallery-card:nth-child(5) { margin-top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="tag">Portfolio · 2025</div>
+      <h1>Ana <em>Belén</em><br>Ojeda</h1>
+      <div class="role">Industrial Engineering</div>
+      <div class="accent-line"></div>
+      <div class="bio-text">
+        <p>I am 23 years old and I am from Paraguay — born and raised there, currently in the final stage of my degree.</p>
+        <p>I had the opportunity to study in Taiwan, which became my second home and shaped my international mindset.</p>
+        <p>Proactive, adaptable, and goal-oriented — with a deep interest in working in global environments.</p>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="photo-frame">
+        <div class="photo-blob">
+          <img src="belen.jpeg" alt="Ana Belén Ojeda">
+        </div>
+        <div class="photo-badge">
+          <strong>🇵🇾 🇹🇼</strong>
+          Paraguay · Taiwan
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story">
+    <div class="story-inner">
+      <div class="story-body">
+        <div class="section-label">My Journey</div>
+        <h2>Stepping out of<br>the comfort zone</h2>
+        <p>After finishing high school, I made a conscious decision to challenge myself and grow beyond what I knew. That decision led me to enroll at the Taiwan-Paraguay Polytechnic University, where my journey in Industrial Engineering began.</p>
+        <p>This mindset later brought me to Taiwan, where I spent several semesters at NTUST. Living in a different culture challenged me to adapt quickly, communicate effectively, and develop a broader international perspective.</p>
+        <p>Today, I'm focused on building a professional career where I can connect across cultures, contribute meaningfully, and keep growing in a global environment.</p>
+      </div>
+      <div class="visual-stack">
+        <div class="deco-dot"></div>
+        <img src="uni.jpg" class="img-main" alt="University" onerror="this.style.display='none'">
+        <div class="img-logo-wrap">
+          <img src="uptp.jpg" class="img-logo" alt="UPTP Logo" onerror="this.style.display='none'">
+          <div class="img-logo-text">
+            NTUST / UPTP
+            <span>Dual University Experience</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY NTUST -->
+  <section class="gallery">
+    <div class="gallery-inner">
+      <div class="gallery-header">
+        <div class="section-label">NTUST · Taipei, Taiwan</div>
+        <h2>Moments I'll never <em>forget</em></h2>
+      </div>
+      <div class="gallery-grid">
+
+        <div class="gallery-card">
+          <div class="gallery-img-wrap">
+            <img src="ntust1.jpeg" alt="Sports tournament">
+            <span class="gallery-tag">🏆 1st Prize</span>
+          </div>
+          <div class="gallery-body">
+            <h4>Champions on the field</h4>
+            <p>Our Paraguayan squad took home the First Prize at the NTUST sports tournament — NTD 4,000 voucher and a whole lot of pride. 🇵🇾</p>
+          </div>
+        </div>
+
+        <div class="gallery-card">
+          <div class="gallery-img-wrap">
+            <img src="ntust2.jpeg" alt="Bubble tea in class">
+            <span class="gallery-tag">🧋 Class life</span>
+          </div>
+          <div class="gallery-body">
+            <h4>Bubble tea Tuesdays</h4>
+            <p>When your professor brings bubble tea for the whole class — only in Taiwan. Those little moments made every lecture unforgettable.</p>
+          </div>
+        </div>
+
+        <div class="gallery-card">
+          <div class="gallery-img-wrap">
+            <img src="ntust3.jpeg" alt="Pizza party with professor">
+            <span class="gallery-tag">🍕 Team vibes</span>
+          </div>
+          <div class="gallery-body">
+            <h4>Pizza & professors</h4>
+            <p>End-of-semester pizza party with the whole crew. The kind of classroom energy that makes you actually look forward to Mondays.</p>
+          </div>
+        </div>
+
+        <div class="gallery-card">
+          <div class="gallery-img-wrap">
+            <img src="ntust4.jpeg" alt="Data-Driven Simulation seminar">
+            <span class="gallery-tag">📊 Academia</span>
+          </div>
+          <div class="gallery-body">
+            <h4>Data-Driven & Simulation</h4>
+            <p>Participating in a Digital Management seminar at Taiwan Tech — bridging industrial engineering with real-world data optimization.</p>
+          </div>
+        </div>
+
+        <div class="gallery-card">
+          <div class="gallery-img-wrap">
+            <img src="ntust5.jpeg" alt="With professor after class">
+            <span class="gallery-tag">👨‍🏫 Mentors</span>
+          </div>
+          <div class="gallery-body">
+            <h4>The professors who stayed</h4>
+            <p>Some teachers leave a mark beyond the syllabus. Grateful for the ones who genuinely cared about our growth — inside and outside the classroom.</p>
+          </div>
+        </div>
+
+        <div class="gallery-card">
+          <div class="gallery-img-wrap">
+            <img src="ntust6.jpeg" alt="Simulation class IM3013">
+            <span class="gallery-tag">🎓 Taiwan Tech</span>
+          </div>
+          <div class="gallery-body">
+            <h4>IM3013 — Simulation class</h4>
+            <p>One of my favourite courses at NTUST. The whole group putting their hands up — the spirit in that classroom was something else entirely.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section class="achievements">
+    <div class="achievements-inner">
+
+      <div class="achievements-header">
+        <div class="section-label">Recognition & Milestones</div>
+        <h2>Achievements that<br>shaped my <em>path</em></h2>
+      </div>
+
+      <div class="achievement-featured">
+        <div class="af-left">
+          <div class="af-badge">⭐ Featured Achievement</div>
+          <div class="af-year">2024 · San Francisco, United States</div>
+          <div class="af-title">Silicon Valley Entrepreneur Incubation Program</div>
+          <div class="af-subtitle">Taiwan Tech · E-commerce Startup Development</div>
+          <p class="af-desc">
+            Developed <strong style="color:white;">COTWO</strong>, a platform that promotes responsible consumption and sustainable mobility through a rewards system. Designed a scalable business model and market strategy — which led to the project's selection for the program. Participated in workshops and networking events, gaining insights into global innovation trends and startup ecosystems.
+          </p>
+          <div class="af-tags">
+            <span class="af-tag">🌱 Sustainability</span>
+            <span class="af-tag">🛒 E-commerce</span>
+            <span class="af-tag">🚀 Startup</span>
+            <span class="af-tag">📦 Business Model</span>
+            <span class="af-tag">🌍 Global Innovation</span>
+          </div>
+        </div>
+
+        <div class="af-right">
+          <div class="af-stat">
+            <div class="af-stat-icon">🏢</div>
+            <div class="af-stat-text">
+              <strong>Taiwan Tech (NTUST)</strong>
+              <span>National Taiwan University of Science and Technology</span>
+            </div>
+          </div>
+          <div class="af-divider"></div>
+          <div class="af-stat">
+            <div class="af-stat-icon">💡</div>
+            <div class="af-stat-text">
+              <strong>COTWO — Startup Founder</strong>
+              <span>Rewards-based platform for responsible consumption & sustainable mobility</span>
+            </div>
+          </div>
+          <div class="af-divider"></div>
+          <div class="af-stat">
+            <div class="af-stat-icon">🤝</div>
+            <div class="af-stat-text">
+              <strong>Workshops & Networking</strong>
+              <span>Immersed in the Silicon Valley startup ecosystem alongside global entrepreneurs</span>
+            </div>
+          </div>
+          <div class="af-divider"></div>
+          <div class="af-location">
+            <div class="af-location-dot"></div>
+            San Francisco, California · United States
+          </div>
+        </div>
+      </div>
+
+      <!-- SILICON VALLEY PHOTOS -->
+      <div class="sv-gallery">
+        <div class="sv-gallery-label">📸 Silicon Valley · 2024</div>
+        <div class="sv-grid">
+
+          <div class="sv-card sv-large">
+            <img src="silicon4.jpeg" alt="Taiwan Tech Summit">
+            <div class="sv-overlay"><span>🎤 Taiwan Tech Summit 2024</span></div>
+          </div>
+
+          <div class="sv-card">
+            <img src="silicon2.jpeg" alt="Team at Taiwan Tech Summit">
+            <div class="sv-overlay"><span>👥 The COTWO team</span></div>
+          </div>
+
+          <div class="sv-card">
+            <img src="silicon3.jpeg" alt="Amazon visit">
+            <div class="sv-overlay"><span>🛒 Visit to Amazon HQ</span></div>
+          </div>
+
+          <div class="sv-card">
+            <img src="silicon5.jpeg" alt="Google visit">
+            <div class="sv-overlay"><span>🔍 Visit to Google · NTUST flag</span></div>
+          </div>
+
+          <div class="sv-card">
+            <img src="silicon6.jpeg" alt="Golden Gate Bridge">
+            <div class="sv-overlay"><span>🌉 Golden Gate Bridge</span></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TRAITS -->
+  <section class="traits">
+    <div class="traits-inner">
+      <h3>What defines me</h3>
+      <div class="pills">
+        <div class="pill"><span class="pill-icon">🌍</span> International Mindset</div>
+        <div class="pill"><span class="pill-icon">🔄</span> Highly Adaptable</div>
+        <div class="pill"><span class="pill-icon">💬</span> Strong Communicator</div>
+        <div class="pill"><span class="pill-icon">🎯</span> Goal-Oriented</div>
+        <div class="pill"><span class="pill-icon">⚡</span> Proactive</div>
+        <div class="pill"><span class="pill-icon">🤝</span> Cross-Cultural Collaboration</div>
+        <div class="pill"><span class="pill-icon">📐</span> Industrial Engineering</div>
+        <div class="pill"><span class="pill-icon">📈</span> Continuous Growth</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Ana Belén Ojeda · Industrial Engineering
+  </footer>
+
+</body>
+</html>
